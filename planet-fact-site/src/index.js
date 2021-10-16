@@ -4,6 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MediaQuery from 'react-responsive';
+// Mediaquery : up to 480px is mobile, up to 768px is tablet, and above is laptop
 
 /* Stylesheet */
 import './index.css';
@@ -18,13 +19,12 @@ const data = require('./data.json');
 function Tab(props) {
     return (
             <button className={"tab " + props.value} onClick={props.onClick}>
-                <MediaQuery minWidth={600}>
-                    <h4>{props.value}</h4>
+                <MediaQuery minWidth={680}>
+                    <h5>{props.value}</h5>
                 </MediaQuery>
-                <MediaQuery maxWidth={599}>
-                    <span className="circle"/>
+                <MediaQuery maxWidth={680}>
+                    <span className="circle" style={{backgroundColor: props.color}}/>
                     <h3>{props.value}</h3>
-                    <span className="wikiarrow"/>
                 </MediaQuery>
             </button>
     )
@@ -33,8 +33,8 @@ function Tab(props) {
 /* Option (Overview, Internal, Geology) */
 function Option(props){
     return (
-        <div>
-            <MediaQuery minWidth={600}>
+        <div id = "options">
+            <MediaQuery minWidth={680}>
                 <button className="option" onClick={props.onClick}
                         style={{backgroundColor: props.color}}>
                     <h3>
@@ -43,10 +43,10 @@ function Option(props){
                     </h3>
                 </button>
             </MediaQuery>
-            <MediaQuery maxWidth={599}>
+            <MediaQuery maxWidth={680}>
                 <button className="option" onClick={props.onClick}
                         style={{borderColor: props.color}}>
-                    <h3>{props.value[1]}</h3>
+                    <h3>{props.value[1].split(" ")[props.value[1].split(" ").length-1]}</h3>
                 </button>
             </MediaQuery>
         </div>
@@ -79,13 +79,15 @@ function PlanetImage(props){
         return (
             <div className="planetImages">
                 <img className="planetImage"
-                     src={graphics[props.value[0]].img[0]}
-                     alt={data[props.value[0]].name}
+                    src={graphics[props.value[0]].img[0]}
+                    alt={data[props.value[0]].name}
                 />
-                <img className="geologyImage"
-                     src={graphics[props.value[0]].img[2]}
-                     alt={data[props.value[0]].name + " Geology"}
-                />
+                <div id = "geodiv">
+                    <img className="geologyImage"
+                         src={graphics[props.value[0]].img[2]}
+                         alt={data[props.value[0]].name + " Geology"}
+                    />
+                </div>
             </div>
         );
     }
@@ -94,7 +96,7 @@ function PlanetImage(props){
 /* Mobile Menu Icon */
 function MenuIcon(props){
     return (
-        <div className="menuIcon" onClick={props.onclick}/>
+        <div className="menuIcon" onClick={props.onClick}/>
     )
 }
 
@@ -131,6 +133,7 @@ class Page extends React.Component {
             <Tab
                 value = {data[i].name}
                 onClick = {() => this.handleClickTab(i)}
+                color = {graphics[i].color}
             />
         );
     }
@@ -184,8 +187,9 @@ class Page extends React.Component {
             />
         );
     }
+
     renderMenuIcon(){
-        return (
+        return(
             <MenuIcon onClick = {() => this.renderTabs()}/>
         )
     }
@@ -193,16 +197,21 @@ class Page extends React.Component {
     /* Renderers for Header and Content */
     renderHeader(){
         return (
-            <div id = 'header'>
-                <div id = 'title'>
-                    THE PLANETS
+            <div>
+                <div id = 'header'>
+                    <div id = 'title'>
+                        THE PLANETS
+                    </div>
+                    <MediaQuery minWidth={680}>
+                        {this.renderTabs()}
+                    </MediaQuery>
+                    <MediaQuery maxWidth={680}>
+                        {/*<MenuIcon/>*/}
+                        {this.renderTabs()}
+                        {this.renderOptions()}
+                    </MediaQuery>
                 </div>
-                <MediaQuery minWidth={600}>
-                    {this.renderTabs()}
-                </MediaQuery>
-                <MediaQuery maxWidth={599}>
-
-                </MediaQuery>
+                <div className="hLine"/>
             </div>
         )
     }
@@ -230,19 +239,27 @@ class Page extends React.Component {
         return (
             <div id = 'content'>
                 <div id = 'middle'>
-                    <div id = 'left'>
-                        {this.renderPlanetImages()}
-                    </div>
-                    <div id = 'right'>
-                        <h1>{data[this.state.planet].name}</h1>
-                        <div className="text">
-                            {text}
+                    <div id = 'leftright'>
+                        <div id = 'left'>
+                            {this.renderPlanetImages()}
                         </div>
-                        <div className="wikipedia">
-                            Source : <a href={src}>Wikipedia</a>
-                            <div className="wikiarrow"/>
+                        <div id = 'right'>
+                            <div id = 'rightcontent'>
+                                <h1>{data[this.state.planet].name}</h1>
+                                <div className="text">
+                                    {text}
+                                </div>
+                                <div className="wikipedia">
+                                    Source : <a href={src}>Wikipedia</a>
+                                    <div className="wikiarrow"/>
+                                </div>
+                            </div>
+                            <MediaQuery minWidth = {680}>
+                                <div id = 'rightoptions'>
+                                    {this.renderOptions()}
+                                </div>
+                            </MediaQuery>
                         </div>
-                        {this.renderOptions()}
                     </div>
                 </div>
                 <div id = 'bottom'>
@@ -254,9 +271,8 @@ class Page extends React.Component {
 
     render() {
         return(
-            <div>
+            <div id="fullpage">
                 {this.renderHeader()}
-
                 {this.renderContent(this.state.planet)}
             </div>
 

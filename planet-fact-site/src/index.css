@@ -3,43 +3,37 @@
 
 /* TAGS */
 body {
+    display: grid;
+    place-items: center;
     background-color: #070724;
     background-image: url("assets/background-stars.svg");
     color: white;
     font-family: 'Spartan', sans-serif;
-    font-size: 14px;
     line-height: 25px;
+    margin:0;
 }
-h1 {
+h1, h2 {
     font-family: 'Antonio', sans-serif;
     font-weight: normal;
-    font-size: 80px;
-    line-height: 60px;
     text-transform: uppercase;
 }
 h2 {
-    font-family: 'Antonio', sans-serif;
-    font-weight: normal;
-    font-size: 40px;
-    line-height: 5px;
     letter-spacing: -1.5px;
+}
+h3, h4, h5 {
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
     text-transform: uppercase;
 }
 h3 {
-    font-family: 'Spartan', sans-serif;
-    font-size: 12px;
-    font-weight: bold;
     letter-spacing: 2.6px;
-    text-transform: uppercase;
 }
-h4 {
-    font-family: 'Spartan', sans-serif;
+h4, h5 {
     font-size: 11px;
-    font-weight: bold;
     letter-spacing: 1px;
     line-height: 25px;
-    text-transform: uppercase;
 }
+
 button {
     font-family: 'Spartan', sans-serif;
     font-weight: bold;
@@ -52,60 +46,35 @@ button:hover {
 }
 
 /* CLASSES */
+
 .tab {
     box-sizing: border-box;
     font-size: 11px;
     border-color: transparent;
-    border-width: 4px 0 0 0;
-    border-radius: 0;
-    height: 85px;
-    padding: 0;
-    margin: 0 20px;
-    color: #838391;
 }
-.tab:hover {
-    border-color: #419EBB;
-    color: white;
-}
+
 .option {
-    width: 350px;
-    height: 48px;
-    text-align: left;
+    background-color: transparent;
     border-style: solid;
     border-radius: 0;
-    border-color: #38384F;
-    margin: 8px 0;
-    background-color: transparent;
 }
-.option:hover {
-    background-color: #38384F;
-}
+
 .option .optionID {
-    color: #838391;
+    color: rgba(255,255,255,0.5);
     margin: 18px;
 }
+
 .box {
-    width: 232px;
-    height: 124px;
     border: 1px solid #38384F;
-    padding-top: 4px;
-    padding-left: 23px;
-    margin: 15px;
     display: inline-block;
 }
 .box .boxName {
     color: #838391;
 }
 
-.planetImage {
-    /*position: relative;*/
-    padding: 100px 250px;
-}
-
-.geologyImage {
-    width: 150px;
-    position: relative;
-    margin: -100px -200px;
+.planetImages {
+    display: grid;
+    place-items: center;
 }
 
 .wikipedia {
@@ -124,35 +93,296 @@ button:hover {
     background-image: url("assets/icon-source.svg");
 }
 
+.circle {
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    display: inline-block;
+
+}
+
+.menuIcon {
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    background-image: url('assets/icon-hamburger.svg');
+}
+
 /* IDS */
 
-#header {
-    height: 85px;
+.hLine {
+    position: absolute;
+    left: 0;
+    width: 100vw;
+    height: 1px;
+    background-color: rgba(255,255,255,0.2);
 }
+
 #title {
     font-family: 'Antonio', sans-serif;
     font-size: 28px;
     letter-spacing: -1.05px;
-    float: left;
-}
-#tabs {
-    float: right;
-}
-#content {
-    width: 1200px;
-}
-#left {
-    width: 800px;
-    margin-right: 20px;
-    display: inline-block;
+    padding: 28px 25px;
 }
 
-
-
-#right {
-    width: 350px;
-    margin-left: 20px;
-    display: inline-block;
+#left, #bottom {
+    display: grid;
+    place-items: center;
 }
+
 #bottom {
+    margin-bottom: 40px;
 }
+
+#geodiv {
+    position: absolute;
+    top: 580px;
+}
+
+/* MOBILE */
+@media screen and (max-width: 680px) {
+
+    h1 {
+        font-size: 40px;
+    }
+
+    h2 {
+        font-size: 20px;
+        line-height: 2px;
+    }
+    h3 {
+        font-size: 9px;
+        line-height: 10px;
+    }
+
+    h4 {
+        font-size: 8px;
+        line-height: 16px;
+    }
+
+    .option {
+        border-width: 0 0 4px 0;
+        border-radius: 0;
+        margin: 0 10px;
+    }
+    #options {
+        display: flex;
+        flax-wrap: wrap;
+        justify-content: center;
+    }
+    .box {
+        width:267px;
+        padding:5px 30px;
+        margin: 10px;
+        display: block;
+    }
+    .boxName {
+        display: inline-block;
+    }
+    .boxValue {
+        display: inline-block;
+        float: right;
+    }
+
+    .planetImage {
+        width: 50%;
+    }
+    .geologyImage {
+        width: 80px;
+    }
+    #geodiv {
+        top: 380px;
+    }
+
+    #content {
+        display: grid;
+        place-items: center;
+    }
+    #middle {
+        width: 327px;
+    }
+    #left {
+        height:400px;
+    }
+    #rightcontent {
+        font-size:11px;
+        line-height: 22px;
+        text-align: center;
+    }
+
+}
+
+/* TABLET */
+@media screen and (min-width: 680px) and (max-width: 768px){
+    body {
+        font-size: 11px;
+    }
+    h1 {
+        font-size: 48px;
+        line-height: 60px;
+    }
+    h2 {
+        font-size: 24px;
+        line-height: 5px;
+    }
+    h3 {
+        font-size: 9px;
+    }
+    h4 {
+        font-size: 8px;
+    }
+
+    .tab {
+        margin: 0 12px;
+    }
+    .option {
+        height: 40px;
+        width: 280px;
+    }
+    .box {
+        height: 88px;
+        width: 130px;
+        margin: 8px;
+        padding-left: 16px;
+        padding-bottom: 2px;
+    }
+    .planetImage {
+        width: 75%;
+    }
+    .geologyImage {
+        width: 120px;
+    }
+
+    #header {
+        display: grid;
+        place-items: center;
+    }
+    #left {
+        height: 650px;
+    }
+    #right {
+        display: flex;
+        flax-wrap: wrap;
+        justify-content: center;
+    }
+    #rightcontent {
+        width: 350px;
+    }
+
+    #rightoptions {
+        display: grid;
+        place-items: center;
+    }
+    .text {
+        width: 300px;
+        height: 150px;
+    }
+}
+
+/* TABLET AND PC */
+@media screen and (min-width: 680px){
+
+    .tab {
+        border-width: 4px 0 0 0;
+        border-radius: 0;
+        height: 85px;
+        padding: 0;
+        color: #838391;
+    }
+    .tab:hover {
+        border-color: white;
+        color: white;
+    }
+
+    .option {
+        text-align: left;
+        border-color: #38384F;
+        margin: 8px 0;
+    }
+    .option:hover {
+        background-color: #38384F;
+    }
+
+}
+
+/* PC */
+@media screen and (min-width: 768px){
+    body {
+        font-size: 14px;
+    }
+    h1 {
+        font-size: 80px;
+        line-height: 60px;
+    }
+    h2 {
+        font-size: 40px;
+        line-height: 5px;
+    }
+    h3 {
+        font-size: 12px;
+    }
+
+    .tab {
+        margin: 0 20px;
+    }
+    .option {
+        height: 48px;
+        width: 350px;
+    }
+    .box {
+        width: 232px;
+        height: 124px;
+        margin: 15px;
+        padding-top: 4px;
+        padding-left: 23px;
+    }
+    .text {
+        height: 150px;
+    }
+    .geologyImage {
+        width: 150px;
+    }
+
+    #header {
+        height: 85px;
+    }
+
+    #title {
+        float: left;
+    }
+
+    #tabs {
+        float: right;
+    }
+
+    #content {
+        width: 1200px;
+    }
+
+    #leftright {
+        display: flex;
+        flax-wrap: wrap;
+        justify-content: center;
+    }
+
+    #left {
+        width: 770px;
+        height: 770px;
+    }
+    #right {
+        display: grid;
+        place-items: center;
+        width: 350px;
+        height: 770px;
+    }
+    #rightcontent{
+        height:250px;
+    }
+
+    #bottom {
+        width: 1200px;
+    }
+}
+
+
+
