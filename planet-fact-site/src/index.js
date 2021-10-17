@@ -17,14 +17,24 @@ const data = require('./data.json');
 
 /* Planet Tab */
 function Tab(props) {
+    const [color, setColor] = React.useState("");
+    const styles = {
+       borderColor: color
+    };
+
     return (
-            <button className={"tab " + props.value} onClick={props.onClick}>
+            <button className="tab" onClick={props.onClick}
+                    style = {styles}
+                    onMouseEnter={() => setColor(props.color)}
+                    onMouseLeave={() => setColor("transparent")}
+            >
                 <MediaQuery minWidth={680}>
                     <h5>{props.value}</h5>
                 </MediaQuery>
                 <MediaQuery maxWidth={680}>
                     <span className="circle" style={{backgroundColor: props.color}}/>
                     <h3>{props.value}</h3>
+                    <span className="arrow"/>
                 </MediaQuery>
             </button>
     )
@@ -33,10 +43,11 @@ function Tab(props) {
 /* Option (Overview, Internal, Geology) */
 function Option(props){
     return (
-        <div id = "options">
+        <div id = "option">
             <MediaQuery minWidth={680}>
                 <button className="option" onClick={props.onClick}
-                        style={{backgroundColor: props.color}}>
+                        style={{
+                            backgroundColor: (props.selected?props.themeColor:"transparent")}}>
                     <h3>
                         <span className="optionID">{props.value[0]}</span>
                         {props.value[1]}
@@ -45,7 +56,9 @@ function Option(props){
             </MediaQuery>
             <MediaQuery maxWidth={680}>
                 <button className="option" onClick={props.onClick}
-                        style={{borderColor: props.color}}>
+                        style={{
+                            color: (props.selected?"white":"grey"),
+                            borderColor: (props.selected?props.themeColor:"transparent")}}>
                     <h3>{props.value[1].split(" ")[props.value[1].split(" ").length-1]}</h3>
                 </button>
             </MediaQuery>
@@ -96,7 +109,9 @@ function PlanetImage(props){
 /* Mobile Menu Icon */
 function MenuIcon(props){
     return (
-        <div className="menuIcon" onClick={props.onClick}/>
+        <div className="menuIcon"
+             style={{opacity:(props.hamopen?0.3:1)}}
+             onClick={props.onClick}/>
     )
 }
 
@@ -109,6 +124,7 @@ class Page extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            hamopen: false,
             planet: 0,
             option: 0,
         };
@@ -117,6 +133,7 @@ class Page extends React.Component {
     /* Click Handlers for Tab and Option */
     handleClickTab(value){
         this.setState({
+            hamopen: false,
             planet: value,
             option: 0,
         });
@@ -124,6 +141,11 @@ class Page extends React.Component {
     handleClickOption(value){
         this.setState({
             option: value,
+        });
+    }
+    handleClickHam(){
+        this.setState({
+            hamopen: !this.state.hamopen,
         });
     }
 
@@ -143,7 +165,8 @@ class Page extends React.Component {
             <Option
                 value = {[idRender, name]}
                 onClick = {() => this.handleClickOption(id)}
-                color = {(id==this.state.option)?graphics[this.state.planet].color:"transparent"}
+                selected = {id==this.state.option}
+                themeColor = {graphics[this.state.planet].color}
             />
         );
     }
@@ -188,9 +211,12 @@ class Page extends React.Component {
         );
     }
 
-    renderMenuIcon(){
+    renderMenuIcon(hamopen){
         return(
-            <MenuIcon onClick = {() => this.renderTabs()}/>
+            <MenuIcon
+                hamopen ={hamopen}
+                onClick = {() => this.handleClickHam()}
+            />
         )
     }
 
@@ -199,15 +225,15 @@ class Page extends React.Component {
         return (
             <div>
                 <div id = 'header'>
-                    <div id = 'title'>
-                        THE PLANETS
-                    </div>
                     <MediaQuery minWidth={680}>
+                        <div id = 'title'>THE PLANETS</div>
                         {this.renderTabs()}
                     </MediaQuery>
                     <MediaQuery maxWidth={680}>
-                        {/*<MenuIcon/>*/}
-                        {this.renderTabs()}
+                        {this.renderMenuIcon(this.state.hamopen)}
+                        <div id = 'title'>THE PLANETS</div>
+                        <div className="hLine"/>
+                        {(this.state.hamopen)?this.renderTabs():null}
                         {this.renderOptions()}
                     </MediaQuery>
                 </div>

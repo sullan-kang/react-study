@@ -73,6 +73,7 @@ button:hover {
 }
 
 .planetImages {
+    position:absolute;
     display: grid;
     place-items: center;
 }
@@ -93,19 +94,32 @@ button:hover {
     background-image: url("assets/icon-source.svg");
 }
 
-.circle {
-    height: 14px;
-    width: 14px;
-    border-radius: 50%;
-    display: inline-block;
-
-}
-
 .menuIcon {
-    width: 32px;
-    height: 32px;
+    cursor: pointer;
+    width: 28px;
+    height: 20px;
     background-size: cover;
     background-image: url('assets/icon-hamburger.svg');
+    float:right;
+    margin:4px 25px;
+}
+
+.circle {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    display: inline-block;
+    float:left;
+    margin:0 10px;
+}
+
+.arrow {
+    width:8px;
+    height:10px;
+    float:right;
+    margin: 0 10px;
+    background-size: cover;
+    background-image: url('assets/icon-chevron.svg');
 }
 
 /* IDS */
@@ -116,13 +130,14 @@ button:hover {
     width: 100vw;
     height: 1px;
     background-color: rgba(255,255,255,0.2);
+    z-index: -1;
 }
 
 #title {
     font-family: 'Antonio', sans-serif;
     font-size: 28px;
     letter-spacing: -1.05px;
-    padding: 28px 25px;
+    margin: 28px 25px;
 }
 
 #left, #bottom {
@@ -153,6 +168,12 @@ button:hover {
     h3 {
         font-size: 9px;
         line-height: 10px;
+        letter-spacing: 1.5px;
+        display:inline;
+    }
+    .tab h3 {
+        font-size: 15px;
+        line-height: 20px;
     }
 
     h4 {
@@ -163,13 +184,37 @@ button:hover {
     .option {
         border-width: 0 0 4px 0;
         border-radius: 0;
-        margin: 0 10px;
+        padding: 18px 15px 14px 15px;
     }
+
     #options {
         display: flex;
         flax-wrap: wrap;
         justify-content: center;
     }
+
+    .tab {
+        display:block;
+        background-color: #070724;
+        width: 350px;
+        text-align: left;
+        border:solid transparent;
+        padding: 10px;
+        color: rgba(255,255,255,0.9);
+    }
+
+    #tabs {
+        position:absolute;
+        width:100vw;
+        height:80vh;
+        left:0;
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        background-color:#070724;
+        z-index: 1;
+    }
+
     .box {
         width:267px;
         padding:5px 30px;
@@ -185,7 +230,7 @@ button:hover {
     }
 
     .planetImage {
-        width: 50%;
+        height:40%;
     }
     .geologyImage {
         width: 80px;
@@ -208,6 +253,9 @@ button:hover {
         font-size:11px;
         line-height: 22px;
         text-align: center;
+    }
+    .text {
+        height:120px;
     }
 
 }
@@ -290,7 +338,6 @@ button:hover {
         color: #838391;
     }
     .tab:hover {
-        border-color: white;
         color: white;
     }
 
@@ -378,7 +425,6 @@ button:hover {
     #rightcontent{
         height:250px;
     }
-
     #bottom {
         width: 1200px;
     }
