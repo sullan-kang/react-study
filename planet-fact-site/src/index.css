@@ -151,7 +151,9 @@ button:hover {
 
 #geodiv {
     position: absolute;
-    top: 580px;
+    display:grid;
+    place-items: center;
+    /*top:250px;*/
 }
 
 /* MOBILE */
@@ -189,8 +191,9 @@ button:hover {
 
     #options {
         display: flex;
-        flax-wrap: wrap;
+        flex-wrap: wrap;
         justify-content: center;
+        z-index:1;
     }
 
     .tab {
@@ -230,13 +233,10 @@ button:hover {
     }
 
     .planetImage {
-        height:40%;
+        height:30%;
     }
     .geologyImage {
         width: 80px;
-    }
-    #geodiv {
-        top: 380px;
     }
 
     #content {
@@ -310,7 +310,7 @@ button:hover {
     }
     #right {
         display: flex;
-        flax-wrap: wrap;
+        flex-wrap: wrap;
         justify-content: center;
     }
     #rightcontent {
@@ -408,7 +408,7 @@ button:hover {
 
     #leftright {
         display: flex;
-        flax-wrap: wrap;
+        flex-wrap: wrap;
         justify-content: center;
     }
 
